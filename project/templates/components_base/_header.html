@@ -1,0 +1,121 @@
+{% load static %}
+<nav class="nav">
+    <div class="container _nav">
+        <div class="nav__content">
+            <div class="nav__content-bars">
+                <h2 class="nav__title">Меню</h2>
+                <a href="#!" class="nav__bars-exit">
+                    <img src="{% static 'loft/assets/icons/exit.svg' %}" alt="exit">
+                </a>
+            </div>
+            <ul class="nav__list">
+                <li>
+                    <a href="{% url 'index' %}" class="nav__list-links">
+                        <img src="{% static 'loft/assets/icons/home.svg' %}" alt="home">
+                        Главная
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}" class="nav__list-links">
+                        <img src="{% static 'loft/assets/icons/aboute.svg' %}" alt="aboute">
+                        О нас
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'contact' %}" class="nav__list-links">
+                        <img src="{% static 'loft/assets/icons/contacts.svg' %}" alt="contacts">
+                        Контакты
+                    </a>
+                </li>
+            </ul>
+            <!-- /.nav__list -->
+            <ul class="nav__contacts">
+                <li>
+                    <a href="tel:89648999119" class="nav__contacts-links">
+                        <i class="far fa-phone-alt"></i>
+                        8 (964) 89 99 119
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'checkout' %}" class="nav__contacts-links">
+                        <i class="far fa-truck"></i>
+                        Доставка
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'register' %}" class="nav__contacts-links">
+                        <i class="far fa-truck"></i>
+                        Доставка
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            <!-- /.nav__contacts -->
+
+        </div>
+        <!-- /.nav__content -->
+    </div>
+    <!-- /.container -->
+    {% include 'components_base/_burger_list_categories.html' %}
+    <!-- /.nav__catigories -->
+</nav>
+<header class="header">
+    <div class="container">
+        <div class="header__content">
+            <div class="header__bar">
+                <a href="#!" class="nav__bars-open">
+                    <span class="burger"></span>
+                    <span class="burger"></span>
+                    <span class="burger"></span>
+                </a>
+
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'loft/assets/icons/LOGO.svg' %}" alt="logo">
+                </a>
+                <form class="header__search" role="search" method="get" action="{% url 'search' %}">
+                    <i class="fal fa-search"></i>
+                    <input name="q" type="search" class="header__search-txt" placeholder="Поиск" aria-label="Поиск">
+                </form>
+
+                <ul class="header__list">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'checkout' %}" class="header__list-item _truck">
+                            <i class="far fa-truck"></i>
+                            Доставка
+                        </a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'register' %}" class="header__list-item _truck">
+                            <i class="far fa-truck"></i>
+                            Доставка
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="{% url 'favorite' %}" class="header__list-item" id="_heart">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'my_basket' %}" class="header__list-item" id="_bag">
+
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'profile' request.user.pk %}" class="header__list-item" id="_profile"></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            {% include 'components_base/_header_list_categories.html' %}
+        </div>
+    </div>
+</header>
+
+
+<script src="{% static 'loft/scripts/script.js' %}"></script>

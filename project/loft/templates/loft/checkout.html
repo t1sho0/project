@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load loft_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block slider %}
+{% endblock slider %}
+
+{% block main %}
+
+<main class="main">
+    <div class="container">
+        <section class="contact__section">
+            <h1 class="contact__section-title">Оформление заказа</h1>
+            <div class="contact__section-content">
+                <form action="{% url 'payment' %}" class="contact__section-form" method="post"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="contact__section-inputs">
+                        <div class="input__title">
+                            <h2>Имя</h2>
+                            {{ customer_form.first_name }}
+                        </div>
+                        <div class="input__title">
+                            <h2>Фамилия</h2>
+                            {{ customer_form.last_name }}
+                        </div>
+                        <div class="input__title">
+                            <h2>Почта</h2>
+                            {{ customer_form.email }}
+                        </div>
+
+                    </div>
+                    <h2 class="textarea__title">Комментарий к заказу</h2>
+                    {{ shipping_form.comment }}
+                    <h2 class="profile__title">Сумма оплаты: {% get_normal_price order.get_cart_total_price %} ₽</h2>
+                    <div class="contact__section-btns">
+                        {% if items %}
+                        <button class="btn btns__send" type="submit">Оформить заказ</button>
+                        {% endif %}
+                    </div>
+                </form>
+
+                <div class="contact__section-list">
+                    <div class="input__title">
+                        <h2>Город</h2>
+                        {{ shipping_form.city }}
+                    </div>
+                    <div class="input__title">
+                        <h2>Адресс</h2>
+                        {{ shipping_form.address }}
+                    </div>
+                    <div class="input__title">
+                        <h2>Регион</h2>
+                        {{ shipping_form.region }}
+                    </div>
+                    <div class="input__title">
+                        <h2>Номер</h2>
+                        {{ shipping_form.phone }}
+                    </div>
+                </div>
+            </div>
+            <div class="contact__card">
+                <div class="check">
+                    <h2 class="contact__section-title">Информация о заказе</h2>
+                    <div class="order_check_info">
+                        <table class="profile__table">
+                            {% if items %}
+                            <tr>
+                                <td colspan="4">Товар</td>
+                                <td>Краткое описание</td>
+                                <td>Длина</td>
+                                <td>Ширина</td>
+                                <td>Глубина</td>
+                                <td>Высота</td>
+                                <td>Цвет</td>
+                                <td>Кол-во</td>
+                                <td>Цена</td>
+                            </tr>
+
+                            {% for item in items|slice:"::-1"|slice:"4" %}
+
+                            <tr>
+                                <td colspan="4" class="profile__title-adaptive">
+                                    <div class="tabel__item">
+                                        <img src="{{ item.product.get_image_product }}" alt="img">
+                                        <span>{{ item.product.title }}</span>
+                                    </div>
+                                </td>
+                                <td class="profile__tabel-data">{{ item.product.short }}</td>
+                                <td class="profile__tabel-data">{{ item.product.size_long }}</td>
+                                <td class="profile__tabel-data">{{ item.product.size_width }}</td>
+                                <td class="profile__tabel-data">{{ item.product.size_depth }}</td>
+                                <td class="profile__tabel-data">{{ item.product.size_height }}</td>
+                                <td class="profile__tabel-data">{{ item.product.color_name }}</td>
+                                <td class="profile__tabel-data">{{ item.quantity }}</td>
+                                <td class="profile__tabel-data">{% get_normal_price item.product.price %}  ₽</td>
+                            </tr>
+                            {% endfor %}
+
+                            <!-- Не трогать - это заглушка для корректного отображения таблицы -->
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <!-- Не трогать - это заглушка для корректного отображения таблицы -->
+                            {% else %}
+                            <span><a href="{% url 'index' %}" class="header__list-links">Ваша корзина пуста добвьте товары для оформления заказа!</a></span>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+{% endblock main %}

@@ -1,0 +1,84 @@
+{% load static %}
+{% load loft_tags %}
+{% get_colors product.model_product as colors %}
+{% get_sizes product.model_product as sizes %}
+
+
+<h1 class="product__title">{{ product.title }}</h1>
+{% if product.short %}
+<span class="product__categories">{{ product.short }}</span>
+{% else %}
+<span class="product__categories">{{ product.dop_category }}</span>
+{% endif %}
+<div class="product__links">
+    <h2 class="product__links-price" ><span id="price">{% get_normal_price product.price %}</span> ₽</h2>
+    <a href="{% url 'basket' product.pk 'add' 1  %}" class="product__links-buy" id="buy">Купить</a>
+    {% if request.user.is_authenticated %}
+    {% get_favorite_products user as fav_products %}
+    {% endif %}
+    {% if product in fav_products and request.user.is_authenticated %}
+    <a href="{% url 'save_favorite' product.slug %}" class="products__item-heart product__links-add">
+        <span>Добавить в желаемое</span></a>
+    {% else %}
+    <a href="{% url 'save_favorite' product.slug %}" class="products__item-heart product__links-add">
+        <span>Добавить в желаемое</span></a>
+    {% endif %}
+</div>
+
+<ul class="paremeters__list">
+    <li class="paremetes__list-item">
+        <h3 class="paremeters__list-title">Цвет</h3>
+        <a href="" class="paremeters__list-btn">
+            <a href="" class="paremeters__color" style="background: {{ product.color_code }}"></a>
+            <img src="{% static 'loft/assets/icons/arrow-black.svg' %}" alt="arrow-down">
+        </a>
+
+        <div class="list__drop list__drop--custom">
+            {% if not product.model_product %}
+            <a href="" style="background: {{ colors.color_code }}; width: 30px; height: 30px; display: inline-block"></a>
+            {% else %}
+            {% for color in colors %}
+            <a href="{% url 'product_color' product.model_product color %}" class="paremeters__color"
+               style="background: {{ color }}; width: 30px; height: 30px; display: inline-block"></a>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+    </li>
+
+    <li class="paremetes__list-item">
+        <h3 class="paremeters__list-title">Количество</h3>
+        <a href="" class="paremeters__list-btn">
+            <div class="paremeters__count" id="quant"><span>1</span></div>
+            <img src="{% static 'loft/assets/icons/arrow-black.svg' %}" alt="arrow-down">
+        </a>
+        <div class="list__drop list__drop--custom">
+            <input type="number" id="quantity_input" style="width: 50px;">
+            <button class="btn" id="success">✔</button>
+        </div>
+    </li>
+
+    <li class="paremetes__list-item">
+        <h3 class="paremeters__list-title">Размер (Д × Ш × В)</h3>
+        <a href="#!" class="paremeters__list-btn">
+            <div class="paremeters__size">{{ product.size_long }} СМ × {{ product.size_width }} СМ × {{ product.size_height }} СМ</div>
+
+            <img src="{% static 'loft/assets/icons/arrow-black.svg' %}" alt="arrow-down">
+        </a>
+        <div class="list__drop">
+            {% for size in sizes %}
+            {% if not product.model_product %}
+            <a href="" class="paremeters__list-btn">{{ size.width }}</a>
+            {% else %}
+            <a href="{% url 'product_size' product.model_product size.long size.width size.depth size.height %}" class="paremeters__list-btn">{{ size.long }} СМ × {{ size.width }} СМ × {{ size.height }} СМ</a>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </li>
+</ul>
+<p class="product__descr">
+    <span class="product__descr-title">Описание</span>
+    {{ product.description }}
+</p>
+<script src="{% static 'loft/scripts/quantity.js' %}"></script>

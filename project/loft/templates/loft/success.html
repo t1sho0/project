@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load loft_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block slider %}
+
+{% endblock slider %}
+
+{% block main %}
+
+<main>
+    <div class="profile">
+        <div class="container">
+            <div class="profile__content">
+                <img class="rounded-circle--custom" style="width: 150px; height: 150px"
+                     src="https://cs13.pikabu.ru/post_img/big/2023/01/13/10/167362671119749686.jpg" alt="">
+                <h3 class="basket__title">Оплата прошла успешно</h3>
+                <p class="basket__count">Всего вам доброго до свидания!</p>
+
+
+                <a href="{% url 'index' %}" class="btn btns__send">Перейти на главную страницу ↩</a>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock main %}

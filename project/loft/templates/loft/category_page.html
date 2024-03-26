@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load loft_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block slider %}
+
+{% endblock slider %}
+
+{% block main %}
+<section class="products">
+    <h2 class="products__title">Хиты продаж</h2>
+    <div class="products__content">
+        {% for product in products %}
+        {% include 'loft/components/_product_card.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock main %}

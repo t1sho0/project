@@ -1,0 +1,18 @@
+{% load loft_tags %}
+{% get_products_detail as products %}
+<div class="container">
+    <section class="products">
+        <h2 class="products__title">Хиты продаж</h2>
+        <div class="products__content">
+            {% for product in products %}
+            {% include 'loft/components/_product_card.html' %}
+            {% endfor %}
+        </div>
+
+    </section>
+
+</div>
+
+
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'components_base/_style.html' %}
+    <title>
+        {% block title %}
+
+        {% endblock title %}
+    </title>
+</head>
+
+<body>
+
+{% include 'components_base/_header.html' %}
+    {% block slider %}
+    {% include 'components_base/_slider.html' %}
+    {% endblock slider %}
+
+{% block main %}
+{% endblock main %}
+
+{% include 'components_base/_footer.html' %}
+<!-- /.footer -->
+
+
+</body>
+
+</html>

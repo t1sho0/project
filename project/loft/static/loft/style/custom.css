@@ -1,0 +1,12 @@
+.list__drop--custom {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+.rounded-circle--custom {
+    border-radius: 50%;
+}
+
+
+

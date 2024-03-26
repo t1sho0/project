@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load loft_tags %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block slider %}
+{% endblock slider %}
+
+{% block main %}
+<main class="main">
+    <div class="container">
+        <form class="login__form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 class="login__title products__title">Авторизация</h2>
+            <div class="login__form-grid">
+
+                <div class="input__title">
+                    <h2>E-mail</h2>
+                    {{ form.username }}
+                </div>
+
+                <div class="input__title">
+                    <h2> Пароль</h2>
+                    {{ form.password }}
+                </div>
+            </div>
+
+            <button class="btn registeration__btn-login _auth" type="submit">Войти</button>
+            <a href="{% url 'register' %}" class="registeration__links">Нету аккаунта? </a>
+
+
+        </form>
+    </div>
+</main>
+{% endblock main %}
+

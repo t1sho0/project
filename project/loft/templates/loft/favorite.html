@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block slider %}
+{% endblock slider %}
+
+
+{% block main %}
+
+<section class="products">
+    <h2 class="products__title">Моё избранное</h2>
+    <div class="products__content">
+        {% for product in products %}
+        {% include 'loft/components/_product_card.html' %}
+        {% endfor %}
+    </div>
+</section>
+
+
+<script src="{% static 'loft/scripts/script.js' %}"></script>
+<script src="{% static 'loft/scripts/slider.js' %}"></script>
+{% endblock main %}
